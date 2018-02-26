@@ -89,7 +89,7 @@ public class SnakeEngine extends SurfaceView implements Runnable {
     }
 
     private void startGame() {
-        snake.setLength(50);
+        snake.setLength(60);
         nextFrameTime = System.currentTimeMillis();
     }
 
@@ -111,7 +111,7 @@ public class SnakeEngine extends SurfaceView implements Runnable {
             canvas.drawColor(Color.argb(255, 26, 128, 182)); //bg color
 
             paint.setTextSize(90);
-            canvas.drawText("X: " + snake.getX() + "   Y: " + snake.getY() + "   S: " + snake.SPEED, 10, 70, paint);
+            canvas.drawText("X: " + snake.getX() + "   Y: " + snake.getY() + "   C: " + snake.COUNT, 10, 70, paint);
 
             snake.draw(canvas);
 
@@ -128,12 +128,13 @@ public class SnakeEngine extends SurfaceView implements Runnable {
     }
 
     public boolean updateRequired() {
+
         // Are we due to update the frame
         if(nextFrameTime <= System.currentTimeMillis()){
             // Tenth of a second has passed
 
             // Setup when the next update will be triggered
-            nextFrameTime =System.currentTimeMillis() + 1000 / FPS;
+            nextFrameTime = System.currentTimeMillis() + 1000 / FPS;
 
             // Return true so that the update and draw
             // functions are executed

@@ -16,17 +16,20 @@ public class Snake {
     private Rect snake;
     private int length;
     private ArrayList<Point> tail = new ArrayList<Point>();
-    private int color;
+    private int snakeColor;
+    private int tailColor;
     private Point snakePos;
 
     public int SPEED = 5;
+    public int COUNT = 0;
     public enum Heading {UP, DOWN, LEFT, RIGHT};
     public Heading heading = Heading.RIGHT;
 
     public Snake(Rect snake, Point snakePos) {
         this.snake = snake;
         this.snakePos = snakePos;
-        color = Color.YELLOW;
+        snakeColor = Color.YELLOW;
+        tailColor = Color.YELLOW;
         tail.add(snakePos);
     }
 
@@ -49,8 +52,18 @@ public class Snake {
                 break;
         }
 
+        /*if(COUNT == 1) //prevent from updating every frame
+            COUNT = -1;
+        else if(COUNT == 0) {
+            tail.add(snakePos);
+            if (tail.size() > length) {
+                tail.remove(0);
+            }
+        }
+        COUNT++;*/
+
         tail.add(snakePos);
-        if(tail.size() > length) {
+        if (tail.size() > length) {
             tail.remove(0);
         }
     }
@@ -132,7 +145,7 @@ public class Snake {
 
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(color);
+        paint.setColor(snakeColor);
         //paint.setColor(Color.rgb(255, 255, 0));
 
         snake.set(snakePos.x - snake.width()/2, snakePos.y - snake.height()/2,
@@ -141,9 +154,18 @@ public class Snake {
 
         canvas.drawRect(snake, paint);
 
-        if(tail.size() > 0) {
+        //draw tail
+        if(length > 0) {
+            /*if(length >= 50)
+                paint.setColor(tailColor);*/
+
             for(Point p : tail) {
+                //paint.setColor(tailColor);
+                /*if(50 - tail.indexOf(p) >= 0)
+                    paint.setColor(Color.CYAN);*/
+
                 paint.setAlpha(25);
+
                 canvas.drawCircle(p.x, p.y, 30, paint);
             }
         }
