@@ -76,8 +76,8 @@ public class Food {
         Random r = new Random();
         //int randomX = r.nextInt(screenX);
         //int randomY = r.nextInt(screenY);
-        pos.x = r.nextInt(screenX);
-        pos.y = r.nextInt(screenY);
+        pos.x = r.nextInt(screenX - 20) + 20;
+        pos.y = r.nextInt(screenY - 20) + 20;
     }
 
     public void draw(Canvas canvas) {

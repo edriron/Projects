@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -44,14 +45,25 @@ public class SnakeEngine extends SurfaceView implements Runnable {
 
         screenX = Resources.getSystem().getDisplayMetrics().widthPixels;
         screenY = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+        screenY -= getNavigationBarHeight();
+
         surfaceHolder = getHolder();
         paint = new Paint();
 
-        snake = new Snake(new Rect(100, 100, 200, 200), new Point(150, 150));
+        snake = new Snake(new Rect(75, 75, 150, 150), new Point(150, 150));
 
         startGame();
     }
 
+    public int getNavigationBarHeight() {
+        int navigationBarHeight = 0;
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        return navigationBarHeight;
+    }
 
     @Override
     public void run() {
@@ -77,13 +89,13 @@ public class SnakeEngine extends SurfaceView implements Runnable {
     }
 
     private void startGame() {
-        snake.setLength(1);
+        snake.setLength(50);
         nextFrameTime = System.currentTimeMillis();
     }
 
     public void update() {
         if (snake.isOnEdge(screenX, screenY))
-            snake.setHeading(snake.getOppositeDirection(screenX));
+            snake.setHeading(snake.getOppositeDirection());
         snake.moveSnake();
 
         if ((food != null) && (snake.getLeft() <= food.getX() && snake.getRight() >= food.getX()) && snake.getTop() <= food.getY() && snake.getBottom() >= food.getY()) {
@@ -99,7 +111,7 @@ public class SnakeEngine extends SurfaceView implements Runnable {
             canvas.drawColor(Color.argb(255, 26, 128, 182)); //bg color
 
             paint.setTextSize(90);
-            canvas.drawText("X: " + snake.getX() + "   Y: " + snake.getY(), 10, 70, paint);
+            canvas.drawText("X: " + snake.getX() + "   Y: " + snake.getY() + "   S: " + snake.SPEED, 10, 70, paint);
 
             snake.draw(canvas);
 
