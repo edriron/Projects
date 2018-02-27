@@ -14,8 +14,11 @@ import java.util.ArrayList;
 
 public class Snake {
     private Rect snake;
+    private Head head;
     private int length;
+
     private ArrayList<Point> tail = new ArrayList<Point>();
+
     private int snakeColor;
     private int tailColor;
     private Point snakePos;
@@ -24,6 +27,13 @@ public class Snake {
     public int COUNT = 0;
     public enum Heading {UP, DOWN, LEFT, RIGHT};
     public Heading heading = Heading.RIGHT;
+
+    public Snake(Head head) {
+        this.head = head;
+        snakeColor = Color.YELLOW;
+        tailColor = Color.YELLOW;
+        tail.add(head.getPos());
+    }
 
     public Snake(Rect snake, Point snakePos) {
         this.snake = snake;
@@ -152,21 +162,38 @@ public class Snake {
                 snakePos.x + snake.width()/2,snakePos.y + snake.height()/2);
 
 
-        canvas.drawRect(snake, paint);
+        //canvas.drawRect(snake, paint);
+        canvas.drawCircle(snakePos.x, snakePos.y, 30, paint);
 
         //draw tail
         if(length > 0) {
             /*if(length >= 50)
                 paint.setColor(tailColor);*/
 
-            for(Point p : tail) {
-                //paint.setColor(tailColor);
-                /*if(50 - tail.indexOf(p) >= 0)
-                    paint.setColor(Color.CYAN);*/
+            int alpha = 50;
 
-                paint.setAlpha(25);
+            Point[] temp = new Point[tail.size()];
+            tail.toArray(temp);
+
+            /*for(Point p : temp) {
+                //paint.setColor(tailColor);
+                if(50 - tail.indexOf(p) >= 0)
+                    paint.setColor(Color.CYAN);
+
+                alpha = (alpha <= 10) ? 10 : alpha - 15;
+                paint.setAlpha(alpha);
 
                 canvas.drawCircle(p.x, p.y, 30, paint);
+            }*/
+
+            for(int i = temp.length-1; i > 0; i--) {
+                //alpha = (alpha <= 10) ? 10 : alpha - 2;
+
+                if(i < temp.length / 3)
+                    paint.setColor(Color.CYAN);
+                paint.setAlpha(25);
+
+                canvas.drawCircle(temp[i].x, temp[i].y, 30, paint);
             }
         }
     }
