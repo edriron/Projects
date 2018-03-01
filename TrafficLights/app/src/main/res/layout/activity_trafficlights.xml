@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnWalkers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="onClick"
+            android:text="Walkers" />
+
+        <Button
+            android:id="@+id/walkerRed"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@drawable/transition_toggle_button_red"
+            android:tag="true" />
+
+        <Button
+            android:id="@+id/walkerOrange"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:background="@drawable/transition_toggle_button_orange" />
+
+        <Button
+            android:id="@+id/walkerGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/transition_toggle_button_green" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnVehicles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:onClick="onClick"
+            android:text="Vehicles" />
+
+        <Button
+            android:id="@+id/veRed"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:background="@drawable/transition_toggle_button_red"
+            android:tag="false"/>
+
+        <Button
+            android:id="@+id/veOrange"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:text=""
+            android:background="@drawable/transition_toggle_button_orange"/>
+
+        <Button
+            android:id="@+id/veGreen"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/transition_toggle_button_green" />
+
+    </LinearLayout>
+</LinearLayout>
