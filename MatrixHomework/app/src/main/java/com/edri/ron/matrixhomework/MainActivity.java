@@ -10,17 +10,23 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
+
+    int screenX, screenY;
+    public final int ROWS = 9;
+    public TextView[][] cellsArr = new TextView[ROWS][ROWS];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        screenX = getResources().getDisplayMetrics().widthPixels;
+        screenY = getResources().getDisplayMetrics().heightPixels;
+
         createViews();
     }
     
-    public final int ROWS = 4;
-    public TextView[][] cellsArr = new TextView[ROWS][ROWS];
-
     private void createViews() {
         //  Linear Layout
         LinearLayout mainLayout = new LinearLayout(this);
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //  Text View
         TextView textView = new TextView(this);
         textView.setText("Matrix");
+        textView.setTextSize(50);
         LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         textViewParams.gravity = Gravity.CENTER;
         textViewParams.topMargin = 50;
@@ -65,25 +72,33 @@ public class MainActivity extends AppCompatActivity {
             onClick(buttons[i]);
         }
 
+        //int m = (int)buttonLayout[1].getBottom();
+        //screenY -= m;
+        screenY /= 2;
+
         //creating rows layout to hold the views
         LinearLayout[] rowsLayout = new LinearLayout[ROWS];
         for (int i = 0; i < rowsLayout.length; i++) {
             rowsLayout[i] = new LinearLayout(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParams.gravity = Gravity.CENTER_VERTICAL;
-
+            params.gravity = Gravity.CENTER;
+            params.rightMargin = 20;
+            params.leftMargin = 20;
+            if(i == 0) params.topMargin = 20;
             rowsLayout[i].setLayoutParams(params);
             mainLayout.addView(rowsLayout[i]);
         }
 
         // creating a TextView array with 9 cells
+        int x = screenX / ROWS, y = screenY / ROWS;
         for (int i = 0; i < cellsArr.length; i++) {
             for(int j = 0; j < cellsArr[i].length; j++) {
                 cellsArr[i][j] = new TextView(this);
-                cellsArr[i][j].setWidth(250);
-                cellsArr[i][j].setHeight(250);
                 LinearLayout.LayoutParams cellsParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                cellsParams.gravity = Gravity.CENTER_VERTICAL;
+                cellsParams.gravity = Gravity.CENTER;
+                cellsParams.weight = 1;
+                cellsParams.width = x;
+                cellsParams.height = y;
                 cellsArr[i][j].setLayoutParams(cellsParams);
                 cellsArr[i][j].setBackground(getResources().getDrawable(R.drawable.shape_table_cell));
                 rowsLayout[i].addView(cellsArr[i][j]);
