@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/groupColors"
+        android:checkableBehavior="all" >
+
+        <item
+            android:id="@+id/menuItemPizza"
+            android:checked="true"
+            android:title="Pizza" />
+
+        <item
+            android:id="@+id/menuItemChips"
+            android:title="Chips" />
+
+        <item
+            android:id="@+id/menuItemPersonalPizza"
+            android:title="Personal Pizza" />
+
+    </group>
+
+    <item
+        android:id="@+id/crash"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="hi"
+        app:showAsAction="always" />
+
+</menu>
