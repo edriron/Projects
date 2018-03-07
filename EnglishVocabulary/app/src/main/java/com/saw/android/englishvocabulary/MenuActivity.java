@@ -16,27 +16,16 @@ public class MenuActivity extends AppCompatActivity {
 
     private LinearLayout mainLayout;
     private LinearLayout.LayoutParams params;
-    //int screenX = getResources().getDisplayMetrics().widthPixels,
-    //    screenY = getResources().getDisplayMetrics().heightPixels;
-    //private Context c;
-    private TextView tv;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
 
-        getSupportActionBar().hide();
+        //setContentView(R.layout.activity_menu);
+        //getSupportActionBar().hide();
 
-        tv = (TextView) findViewById(R.id.tvTest);
-
-        int[] a = getPixelsByPrecentage(90, 85);
-        tv.setX(a[0]);
-        tv.setY(a[1]);
-        tv.setText(a[0] + ", " + a[1]);
-
-        /*mainLayout = ViewsCreator.createLinearLayout(Content.Match);
+        mainLayout = ViewsCreator.createLinearLayout(Content.Match);
 
         Button button = new Button(this);
         button.setText("test");
@@ -47,34 +36,15 @@ public class MenuActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int[] a = getPixelsByPrecentage(50, 50);
-                Toast.makeText(c, a[0] + " " + a[1], Toast.LENGTH_SHORT).show();
+                int[] a = ViewsCreator.getPixelsByPercentage(50, 50);
+                Toast.makeText(MyApp.getContext(), a[0] + ", " + a[1], Toast.LENGTH_SHORT).show();
             }
         });
         mainLayout.addView(button);
 
-        setContentView(mainLayout);*/
+        setContentView(mainLayout);
     }
 
-    public int[] getPixelsByPrecentage(int x, int y) {
-        int[] xy = {0, 0};
-        if(x < 0 || y < 0 || x > 100 || y > 100)
-            return xy;
-        int maxX = getResources().getDisplayMetrics().widthPixels;
-        int maxY = getResources().getDisplayMetrics().heightPixels - getNavigationBarHeight();
 
-        xy[0] = (x * maxX) / 100;
-        xy[1] = (y * maxY) / 100;
-
-        return xy;
-    }
-
-    public int getNavigationBarHeight() {
-        Resources resources = getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0)
-            return resources.getDimensionPixelSize(resourceId);
-        return 0;
-    }
 
 }
