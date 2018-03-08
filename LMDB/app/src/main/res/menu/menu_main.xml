@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menuItemFavorites"
+        android:icon="@drawable/favorites_white"
+        android:title="Favorites"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menuItemAdd"
+        android:icon="@drawable/add_white"
+        android:title="Search"
+        app:showAsAction="always" />
+
+    <group
+        android:id="@+id/groupOptions" >
+
+        <item
+            android:id="@+id/menuItem1"
+            android:title="Option A" />
+
+        <item
+            android:id="@+id/menuItem2"
+            android:title="Option B" />
+
+    </group>
+
+</menu>
