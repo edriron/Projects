@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">English Vocabulary</string>
+    <string name="add_new_words">Add New Words</string>
+    <string name="view_all_words">Show All Words</string>
+    <string name="add_word">Add a Word</string>
+
+    <string-array name="types_arrays">
+        <item>Choose a group type:</item>
+        <item>Verb</item>
+        <item>Noun</item>
+        <item>Adjective</item>
+    </string-array>
 </resources>

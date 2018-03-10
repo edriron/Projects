@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:title="Filter by"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menuNone"
+                android:title="---" />
+
+            <item
+                android:id="@+id/menuVerb"
+                android:title=">> Verbs" />
+
+            <item
+            android:id="@+id/menuNoun"
+            android:title=">> Nouns" />
+
+            <item
+                android:id="@+id/menuAdjective"
+                android:title=">> Adjectives" />
+        </menu>
+
+    </item>
+
+</menu>

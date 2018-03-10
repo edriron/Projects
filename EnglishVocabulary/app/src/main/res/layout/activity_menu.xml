@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="20dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="25dp"
-        android:layout_weight="1"
-        app:srcCompat="@raw/english_logohdpi" />
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTopTitle"
+        style="@style/TextTitle"
+        android:text="@string/app_name" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="@dimen/marginTopTitle"
+        android:layout_marginEnd="@dimen/marginTopTitle"
+        android:background="@drawable/shape_button_menu"
+        android:text="@string/add_new_words" />
+
+    <Button
+        android:id="@+id/btnDB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="@dimen/marginTopTitle"
+        android:layout_marginStart="@dimen/marginTopTitle"
+        android:layout_marginEnd="@dimen/marginTopTitle"
+        android:background="@drawable/shape_button_menu"
+        android:text="@string/view_all_words" />
+
+
 </LinearLayout>
