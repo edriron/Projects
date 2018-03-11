@@ -32,7 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             etSub.setText(i.getStringExtra("sub"));
             etBody.setText(i.getStringExtra("body"));
             final String original = etSub.getText().toString();
-            
+
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
