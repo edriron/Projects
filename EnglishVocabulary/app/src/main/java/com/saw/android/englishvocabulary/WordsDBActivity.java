@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 public class WordsDBActivity extends AppCompatActivity {
 
     private LinearLayout layoutDB;
+    public final int sort_None = 0, sort_verbs = 1, sortNouns = 2, sort_Adjective = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +27,16 @@ public class WordsDBActivity extends AppCompatActivity {
 
         layoutDB = findViewById(R.id.layoutDB);
 
-        loadListView(-1);
+        loadListView(sort_None);
     }
 
     public void loadListView(int sort) {
-        String[] foods = MenuActivity.wordsList.getNamesStringArray();
-        if(sort != -1)
-            foods = sortListView(sort, foods);
+        //  Method to load all words to the list view
+        String[] WordNames = MenuActivity.wordsList.getNamesStringArray();
+        if(sort != sort_None)
+            WordNames = sortListView(sort, WordNames);
 
-        ListAdapter MyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, foods);
+        ListAdapter MyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, WordNames);
         ListView MyListView = findViewById(R.id.listView);
         MyListView.setAdapter(MyAdapter);
         MyListView.setOnItemClickListener(
@@ -52,27 +53,25 @@ public class WordsDBActivity extends AppCompatActivity {
     }
 
     public String[] sortListView(int sort, String[] strings) {
-        if(sort == 0) return strings;
+        //  Method to sort the words in list view by group types
+        if(sort == sort_None) return strings;
         ArrayList<String> arr = new ArrayList<String>();
         for (String s : strings) {
-            //  1-verb  2-noun  3-adjective 0-none
             switch (sort) {
-
-                case 1:
+                case sort_verbs:
                     if(s.contains("Verb"))
                         arr.add(s);
                     break;
 
-                case 2:
+                case sortNouns:
                     if(s.contains("Noun"))
                         arr.add(s);
                     break;
 
-                case 3:
+                case sort_Adjective:
                     if(s.contains("Adjective"))
                         arr.add(s);
                     break;
-
             }
         }
 
@@ -91,16 +90,16 @@ public class WordsDBActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menuAdjective:
-                loadListView(3);
+                loadListView(sort_Adjective);
                 return true;
             case R.id.menuVerb:
-                loadListView(1);
+                loadListView(sort_verbs);
                 return true;
             case R.id.menuNoun:
-                loadListView(2);
+                loadListView(sortNouns);
                 return true;
             case R.id.menuNone:
-                loadListView(0);
+                loadListView(sort_None);
                 return true;
         }
 
