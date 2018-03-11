@@ -25,4 +25,21 @@ public class Movie extends android.support.v7.widget.AppCompatButton {
     public String getBody() {
         return body;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public boolean equals(Movie m) {
+        return (m.getName().equals(name) && m.getBody().equals(body));
+    }
+
+    public void set(Movie m) {
+        name = m.getName();
+        name = m.getBody();
+    }
 }

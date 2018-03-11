@@ -19,8 +19,8 @@ public class LibraryActivity extends AppCompatActivity {
 
     private MenuItem optionA, optionB;
     private GridLayout gridMovies;
-    private ArrayList<Movie> movies;
     public final int NEW_MOVIE = 1;
+    public final int EDIT_MOVIE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,6 @@ public class LibraryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_library);
 
         gridMovies = (GridLayout) findViewById(R.id.gridMovies);
-        movies = new ArrayList<Movie>();
 
         fillMoviesByDB();
     }
@@ -37,16 +36,12 @@ public class LibraryActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_main, menu);
 
-        // Need to find menu items only here because they belong to the menu and not to the main layout.
-        // Also, they are not created yet on the onCreate event:
         optionA = menu.findItem(R.id.menuItem1);
         optionB = menu.findItem(R.id.menuItem2);
 
         return true;
     }
 
-    // Return true to state that the menu event has been handled.
-    // Return false to state that the menu event has not been handled.
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemId = item.getItemId();
@@ -55,6 +50,7 @@ public class LibraryActivity extends AppCompatActivity {
             case R.id.menuItemAdd:
                 Toast.makeText(this, "Add", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(this, MovieDetailsActivity.class);
+                i.putExtra("state", "add");
                 startActivityForResult(i, NEW_MOVIE);
                 return true;
             case R.id.menuItemFavorites:
@@ -73,39 +69,67 @@ public class LibraryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == NEW_MOVIE) {
+        if (requestCode == NEW_MOVIE || requestCode == EDIT_MOVIE) {
             if(resultCode == Activity.RESULT_OK){
-                String subject = data.getStringExtra("subject");
+                String subject = data.getStringExtra("sub");
                 String body = data.getStringExtra("body");
-                addMovie(subject, body);
+                String state = data.getStringExtra("state");
+                String original = data.getStringExtra("original");
+                updateMovie(subject, body, state, original);
             }
         }
     }
 
-    private void addMovie(String sub, final String body) {
+    private void updateMovie(String sub, String body, String state, String original) {
         Movie b = new Movie(this, sub, body);
+
+        if(state.equals("edit")) {
+            int index = MenuActivity.movies.getMovieIndex(original);
+            if(index == -1)
+                Toast.makeText(this, original + "." + state, Toast.LENGTH_LONG).show();
+            else MenuActivity.movies.setMovie(index, b);
+        }
+        else {
+            MenuActivity.movies.add(b);
+        }
+
         b.setText(sub);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        int width = getResources().getDisplayMetrics().widthPixels;
-        params.width = (int) (width * 0.2);
-        params.height = (int) (getResources().getDisplayMetrics().heightPixels * 0.15);
-        width = (int) ( (width * 0.2) / 8);
-        params.setMargins(width, width, width, width);
-        params.gravity = Gravity.CENTER;
-        b.setLayoutParams(params);
-        gridMovies.addView(b);
-
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MyApp.getContext(), body, Toast.LENGTH_LONG).show();
-            }
-        });
+        fillMoviesByDB();
     }
 
     private void fillMoviesByDB() {
-        // TODO: 09/03/2018 check with db for movies to present
+        if(MenuActivity.movies.isEmpty())
+            return;
+
+        gridMovies.removeAllViews();
+        for(Movie m : MenuActivity.movies.getList()) {
+            final Movie b = new Movie(this, m.getName(), m.getBody());
+            b.setText(m.getName());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            int width = getResources().getDisplayMetrics().widthPixels;
+            params.width = (int) (width * 0.2);
+            params.height = (int) (getResources().getDisplayMetrics().heightPixels * 0.15);
+            width = (int) ( (width * 0.2) / 8);
+            params.setMargins(width, width, width, width);
+            params.gravity = Gravity.CENTER;
+            b.setLayoutParams(params);
+
+            gridMovies.addView(b);
+
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(this, "Add", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(MyApp.getContext(), MovieDetailsActivity.class);
+                    i.putExtra("state", "edit");
+                    i.putExtra("sub", b.getName());
+                    i.putExtra("body", b.getBody());
+
+                    startActivityForResult(i, EDIT_MOVIE);
+                }
+            });
+        }
     }
 }

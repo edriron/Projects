@@ -16,7 +16,7 @@
         app:showAsAction="always" />
 
     <group
-        android:id="@+id/groupOptions" >
+        android:id="@+id/groupOptions">
 
         <item
             android:id="@+id/menuItem1"

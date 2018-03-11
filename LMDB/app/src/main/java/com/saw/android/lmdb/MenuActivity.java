@@ -18,6 +18,8 @@ public class MenuActivity extends AppCompatActivity {
     private Button btnLibrary;
     private int orientation = Configuration.ORIENTATION_PORTRAIT;
 
+    public static MoviesList movies = new MoviesList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
