@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddWordActivity" />
-        <activity android:name=".WordsDBActivity"></activity>
+        <activity android:name=".WordsDBActivity" />
+        <activity android:name=".PracticeActivity"></activity>
     </application>
 
 </manifest>

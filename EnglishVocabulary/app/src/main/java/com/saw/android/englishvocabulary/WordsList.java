@@ -24,11 +24,33 @@ public class WordsList {
         return list;
     }
 
+    public boolean isEmpty() {
+        return list.size() == 0;
+    }
+
     public String[] getNamesStringArray() {
         String[] l = new String[list.size()];
         for(int i = 0; i < list.size(); i++) {
             Word index = list.get(i);
             l[i] = index.getName() + " (" + index.getType() + ")";
+        }
+        return l;
+    }
+
+    public String[] getNames() {
+        String[] l = new String[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            Word index = list.get(i);
+            l[i] = index.getName();
+        }
+        return l;
+    }
+
+    public String[] getTrans() {
+        String[] l = new String[list.size()];
+        for(int i = 0; i < list.size(); i++) {
+            Word index = list.get(i);
+            l[i] = index.getTrans();
         }
         return l;
     }

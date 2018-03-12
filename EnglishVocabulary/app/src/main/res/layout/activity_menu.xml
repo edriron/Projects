@@ -37,5 +37,16 @@
         android:background="@drawable/shape_button_menu"
         android:text="@string/view_all_words" />
 
+    <Button
+        android:id="@+id/btnPractice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:layout_marginTop="@dimen/marginTopTitle"
+        android:layout_marginStart="@dimen/marginTopTitle"
+        android:layout_marginEnd="@dimen/marginTopTitle"
+        android:background="@drawable/shape_button_menu"
+        android:text="@string/practice" />
+
 
 </LinearLayout>
