@@ -2,6 +2,7 @@ package com.saw.android.lmdb;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,7 +28,7 @@ public class LibraryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        gridMovies = (GridLayout) findViewById(R.id.gridMovies);
+        gridMovies = findViewById(R.id.gridMovies);
 
         fillMoviesByDB();
     }
@@ -85,9 +86,8 @@ public class LibraryActivity extends AppCompatActivity {
 
         if(state.equals("edit")) {
             int index = MenuActivity.movies.getMovieIndex(original);
-            if(index == -1)
                 Toast.makeText(this, original + "." + state, Toast.LENGTH_LONG).show();
-            else MenuActivity.movies.setMovie(index, b);
+            MenuActivity.movies.setMovie(index, b);
         }
         else {
             MenuActivity.movies.add(b);
@@ -106,6 +106,8 @@ public class LibraryActivity extends AppCompatActivity {
         for(Movie m : MenuActivity.movies.getList()) {
             final Movie b = new Movie(this, m.getName(), m.getBody());
             b.setText(m.getName());
+            //b.setTextAppearance(this, R.style.MovieButton);
+            b.setBackground(getResources().getDrawable(R.drawable.shape_menu_button));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             int width = getResources().getDisplayMetrics().widthPixels;
@@ -114,6 +116,10 @@ public class LibraryActivity extends AppCompatActivity {
             width = (int) ( (width * 0.2) / 8);
             params.setMargins(width, width, width, width);
             params.gravity = Gravity.CENTER;
+
+
+
+
             b.setLayoutParams(params);
 
             gridMovies.addView(b);

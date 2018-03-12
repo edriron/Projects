@@ -11,4 +11,7 @@
     <color name="yellow">#fff000</color>
     <color name="red_strong">#6a1f23</color>
     <color name="red_light">#d3868d</color>
+    <color name="grey_button">#464646</color>
+    <color name="light_grey_button">#b4b4b4</color>
+    <color name="grey_stroke_button">#696969</color>
 </resources>
