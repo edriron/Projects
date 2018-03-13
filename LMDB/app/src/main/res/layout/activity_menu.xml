@@ -29,4 +29,16 @@
         android:fontFamily="casual"
         android:textStyle="bold"/>
 
+    <Button
+        android:id="@+id/btnTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/topMarginTitle"
+        android:textAllCaps="false"
+        android:background="@drawable/shape_menu_button"
+        android:text="Test"
+        android:textSize="20dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"/>
+
 </LinearLayout>
