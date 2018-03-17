@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".LibraryActivity" />
         <activity android:name=".MovieDetailsActivity" />
-        <activity android:name=".HttpActivity"></activity>
+        <activity android:name=".HttpActivity" />
+        <activity android:name=".DatabaseShowActivity"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 public class MenuActivity extends AppCompatActivity {
 
     private LinearLayout mainLayout;
-    private Button btnLibrary, btnTest;
+    private Button btnLibrary, btnTest, btnTestDB;
     private int orientation = Configuration.ORIENTATION_PORTRAIT;
 
     public static MoviesList movies = new MoviesList();
@@ -58,6 +58,15 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MyApp.getContext(), HttpActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnTestDB = findViewById(R.id.btnTestDB);
+        btnTestDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MyApp.getContext(), DatabaseShowActivity.class);
                 startActivity(i);
             }
         });

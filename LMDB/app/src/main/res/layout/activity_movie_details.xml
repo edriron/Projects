@@ -18,20 +18,21 @@
         <TextView
             android:id="@+id/tvSubject"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textColor="@color/black"
+            android:layout_height="40sp"
+            android:layout_weight="0.1"
             android:fontFamily="casual"
-            android:textStyle="bold"
-            android:text="Subject:" />
+            android:text="Title:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etSub"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:layout_weight="1"
             android:ems="10"
+            android:inputType="text"
             android:background="@drawable/shape_edittext"
             />
 
@@ -40,23 +41,24 @@
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30sp"
         android:paddingLeft="10dp"
-        android:layout_marginTop="@dimen/topMarginTitleLibrary"
+        android:layout_marginTop="15dp"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:fontFamily="casual"
         android:textStyle="bold"
-        android:text="Body:" />
+        android:text="Description:" />
 
     <EditText
         android:id="@+id/etBody"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120sp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:background="@drawable/shape_edittext"
         android:padding="10dp"
+        android:maxLines="5"
         android:layout_margin="5dp"/>
 
     <LinearLayout
@@ -69,7 +71,7 @@
         <TextView
             android:id="@+id/tvURL"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:layout_weight="1"
             android:textSize="20sp"
             android:textColor="@color/black"
@@ -78,46 +80,48 @@
             android:text="URL:" />
 
         <EditText
-            android:id="@+id/edTRL"
+            android:id="@+id/edURL"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="30sp"
             android:ems="10"
+            android:inputType="text"
             android:background="@drawable/shape_edittext" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnShowUrl"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_menu_button"
+            android:layout_height="40sp"
             android:layout_marginStart="10dp"
-            android:text="Show >>" />
+android:text="Show"
+            android:background="@drawable/shape_menu_button" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="150sp"
+        android:layout_marginTop="@dimen/topMarginTitleLibrary"
         app:srcCompat="@raw/blank_movie_thumbnail" />
 
     <LinearLayout
+        android:id="@+id/btnWrapperLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/topMarginTitleLibrary"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnOK"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
             android:layout_weight="1"
             android:text="OK" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50sp"
             android:layout_weight="1"
             android:text="Cancel" />
     </LinearLayout>

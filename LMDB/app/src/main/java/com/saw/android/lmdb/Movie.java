@@ -19,15 +19,17 @@ public class Movie extends android.support.v7.widget.AppCompatButton {
         this.body = body;
     }
 
-    public Movie(Context c, String name, int id) {
+    public Movie(Context c, String name,String body, int id) {
         super(c);
         this.name = name;
+        this.body = body;
         this.id = id;
-        this.body = "";
     }
 
-    public int getID() {
-        return id;
+    public Movie(String name, String body) {
+        super(null);
+        this.name = name;
+        this.body = body;
     }
 
     public String getName() {
@@ -38,8 +40,24 @@ public class Movie extends android.support.v7.widget.AppCompatButton {
         return body;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setBody(String name) {
+        this.body = body;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void set(Movie m) {
