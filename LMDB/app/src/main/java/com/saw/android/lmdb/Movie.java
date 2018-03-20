@@ -1,39 +1,39 @@
 package com.saw.android.lmdb;
 
-import android.content.Context;
+import java.io.Serializable;
 
 /**
  * Created by Ron on 09/03/2018.
  */
 
-public class Movie extends android.support.v7.widget.AppCompatButton {
+public class Movie implements Serializable {
 
-    private String name;
+    private int id;
+    private String title;
     private String body;
     private String url;
-    private int id;
 
-    public Movie(Context c, String name, String body) {
-        super(c);
-        this.name = name;
+    public Movie(String title, String body) {
+        this.title = title;
         this.body = body;
+        this.url = "http://files.softicons.com/download/tv-movie-icons/movie-icons-by-tobias-vogel/png/512x512/movie-noPlay-blank.png";
     }
 
-    public Movie(Context c, String name,String body, int id) {
-        super(c);
-        this.name = name;
+    public Movie(String title, String body, String url) {
+        this.title = title;
         this.body = body;
+        this.url = url;
+    }
+
+    public Movie(String title,String body, String url, int id) {
+        this.title = title;
+        this.body = body;
+        this.url = url;
         this.id = id;
     }
 
-    public Movie(String name, String body) {
-        super(null);
-        this.name = name;
-        this.body = body;
-    }
-
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public String getBody() {
@@ -45,10 +45,10 @@ public class Movie extends android.support.v7.widget.AppCompatButton {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.title = name;
     }
 
-    public void setBody(String name) {
+    public void setBody(String body) {
         this.body = body;
     }
 
@@ -56,12 +56,73 @@ public class Movie extends android.support.v7.widget.AppCompatButton {
         this.id = id;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public int getId() {
         return id;
     }
 
     public void set(Movie m) {
-        name = m.getName();
+        title = m.getTitle();
         body = m.getBody();
+        url = m.getUrl();
+    }
+
+    public void normalizeToSave() {
+        title = title.replaceAll("'", "_xx_");
+        body = body.replaceAll("'", "_xx_");
+        url = url.replaceAll("'", "_xx_");
+    }
+
+    public void normalizeToLoad() {
+        title = title.replaceAll("_xx_", "'");
+        body = body.replaceAll("_xx_", "'");
+        url = url.replaceAll("_xx_", "'");
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
+
+    //Adds \ before every '
+    private static String normalizeString(String str) {
+        if (!str.contains("'"))
+            return str;
+
+        String string = "";
+        for (int i = 0; i < str.length(); i++)
+            if (str.charAt(i) == '\'') {
+                String first = str.substring(0, i);
+                String rest = str.substring(i, str.length());
+                first += "\\";
+                string = first + rest;
+                i++;
+                str = string;
+            }
+        return string;
+    }
+
+    //Removes all ' from string
+    public static String removeAllChars(String str) {
+        if (!str.contains("'"))
+            return str;
+
+        String string = "";
+        for (int i = 0; i < str.length(); i++)
+            if (str.charAt(i) == '\'') {
+                String first = str.substring(0, i);
+                String rest = str.substring(i+1, str.length());
+                string = first + rest;
+                i++;
+                str = string;
+            }
+        return string;
+    }
+
+    public Movie duplicate() {
+        return new Movie(title, body, url, id);
     }
 }

@@ -24,7 +24,7 @@ public class MenuActivity extends AppCompatActivity {
         btnPractice = findViewById(R.id.btnPractice);
         wordsList = new WordsList();
 
-        wordsList.test();
+        //wordsList.testDB();
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override

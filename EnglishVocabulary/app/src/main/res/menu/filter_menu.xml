@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:icon="@android:drawable/ic_popup_sync"
+        android:id="@+id/menuRefresh"
+        android:title="Refresh"
+        app:showAsAction="ifRoom">
+
+    </item>
 
 
     <item

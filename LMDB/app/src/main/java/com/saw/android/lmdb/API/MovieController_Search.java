@@ -1,15 +1,16 @@
-package com.saw.android.lmdb;
+package com.saw.android.lmdb.API;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import org.json.JSONArray;
+
+import com.saw.android.lmdb.API.HttpRequest;
+import com.saw.android.lmdb.API.MovieController;
+import com.saw.android.lmdb.Movie;
+import com.saw.android.lmdb.MovieDetailsActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 
 /**
  * Created by Android on 3/13/2018.
@@ -47,7 +48,7 @@ public class MovieController_Search extends MovieController {
             JSONObject jsonObject = new JSONObject(downloadedText);
 
             //title
-            String name = jsonObject.getString("original_title");
+            String title = jsonObject.getString("original_title");
 
             //body
             String body = jsonObject.getString("overview");
@@ -57,10 +58,11 @@ public class MovieController_Search extends MovieController {
 
             Intent i = new Intent(activity, MovieDetailsActivity.class);
             i.putExtra("state", "add_from_api");
-            i.putExtra("sub", name);
-            i.putExtra("body", body);
-            i.putExtra("url", "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + url);
-            activity.startActivity(i);
+            Movie movie = new Movie(title, body, "https://image.tmdb.org/t/p/w185_and_h278_bestv2/" + url);
+            i.putExtra("movie", movie);
+            activity.startActivityForResult(i, 1);
+
+            //HttpActivity.setMovieToEditActivity(movie);
         }
         catch (JSONException ex) {
             Toast.makeText(activity, "Error: " + ex.getMessage(), Toast.LENGTH_LONG).show();

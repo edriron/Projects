@@ -1,12 +1,11 @@
-package com.saw.android.lmdb;
+package com.saw.android.lmdb.API;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 // Class for reading server data:
 public class MoviesReaderController extends MovieController implements AdapterView.OnItemClickListener{
 
-    private String name = "matrix";
+    private String name = "";
 
     // ctor:
     public MoviesReaderController(Activity activity, String name) {

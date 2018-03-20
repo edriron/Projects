@@ -3,4 +3,13 @@
     <string name="mainTitle">Local Movie Database</string>
     <string name="library">Library</string>
     <string name="myLibrary">My Library</string>
+    <string name="movie_title_search_hint">Movie title</string>
+    <string name="search_movies_online">Search Movies Online</string>
+    <string name="test_db">Test DB</string>
+    <string name="title">Title:</string>
+    <string name="description">Description:</string>
+    <string name="url">URL:</string>
+    <string name="show">Show</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

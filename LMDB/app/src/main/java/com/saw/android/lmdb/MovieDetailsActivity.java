@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,22 +24,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private LinearLayout mainLayout;
     private Button btnOk, btnCancel, btnShow;
-    private EditText etSub, etBody, etUrl;
+    private EditText etTitle, etBody, etUrl;
     private TextView tvTitle, tvDesc, tvUrl;
     private ImageView imageView;
-
-    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
 
+        //Define views
         mainLayout = findViewById(R.id.mainLayout);
 
-        etSub = findViewById(R.id.etSub);
+        etTitle = findViewById(R.id.etSub);
         etBody = findViewById(R.id.etBody);
-        etUrl = findViewById(R.id.edURL);
+        etUrl = findViewById(R.id.etURL);
 
         tvTitle = findViewById(R.id.tvSubject);
         tvDesc = findViewById(R.id.tvBody);
@@ -47,53 +50,70 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.imageView);
 
-        db = new Database();
-
         DisplayMetrics met = getResources().getDisplayMetrics();
-        orderViewsByScreen(met.widthPixels, met.heightPixels, (int)met.density);
+        //orderViewsByScreenTest(met.widthPixels, met.heightPixels);
 
+        //Get intent and state [edit or add]
         Intent i = getIntent();
         final String state = i.getStringExtra("state");
-        final Movie m = new Movie(this, etSub.getText().toString(), etBody.getText().toString()); //CRASH
-        if(state.equals("edit")) {
+        //final Movie m = new Movie(etSub.getText().toString(), etBody.getText().toString());
 
-            etSub.setText(i.getStringExtra("sub"));
-            etBody.setText(i.getStringExtra("body"));
-            final String original = etSub.getText().toString();
+        if(state.equals("edit")) {
+            final Movie movie = (Movie) i.getSerializableExtra("movie");
+            etTitle.setText(movie.getTitle());
+            etBody.setText(movie.getBody());
+            etUrl.setText(movie.getUrl());
+
+            btnOk.setText("Save");
+
+            new DownloadImageTask((ImageView) findViewById(R.id.imageView))
+                    .execute(movie.getUrl());
 
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent i = new Intent();
-                    i.putExtra("state", state);
-                    i.putExtra("original", original);
-                    i.putExtra("sub", etSub.getText().toString());
-                    i.putExtra("body", etBody.getText().toString());
+                    i.putExtra("oldMovie", movie);
+                    Movie newMovie = new Movie(etTitle.getText().toString(), etBody.getText().toString(), etUrl.getText().toString(), movie.getId());
+                    i.putExtra("newMovie", newMovie);
                     setResult(Activity.RESULT_OK, i);
                     finish();
                 }
             });
         }
         else if(state.equals("add_from_api")) {
-            etSub.setText(i.getStringExtra("sub"));
-            etBody.setText(i.getStringExtra("body"));
-            String url = i.getStringExtra("url");
-            etUrl.setText(url);
+            Movie movie = (Movie) i.getSerializableExtra("movie");
+            etTitle.setText(movie.getTitle());
+            etBody.setText(movie.getBody());
+            etUrl.setText(movie.getUrl());
+
+            btnOk.setText("Add");
+
             new DownloadImageTask((ImageView) findViewById(R.id.imageView))
-                    .execute(url);
-        }
-        else {
+                    .execute(movie.getUrl());
+
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    m.setName(etSub.getText().toString());
-                    m.setBody(etBody.getText().toString());
-                    db.addProduct(m);
-
                     Intent i = new Intent();
-                    i.putExtra("state", state);
-                    i.putExtra("sub", etSub.getText().toString());
-                    i.putExtra("body", etBody.getText().toString());
+                    Movie movie = new Movie(etTitle.getText().toString(), etBody.getText().toString(), etUrl.getText().toString());
+                    i.putExtra("movie", movie);
+                    setResult(Activity.RESULT_OK, i);
+                    finish();
+                }
+            });
+        }
+        else { //add
+            btnOk.setText("Add");
+            btnOk.setEnabled(false);
+            new DownloadImageTask((ImageView) findViewById(R.id.imageView))
+                    .execute("http://files.softicons.com/download/tv-movie-icons/movie-icons-by-tobias-vogel/png/512x512/movie-noPlay-blank.png");
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent();
+                    Movie movie = new Movie(etTitle.getText().toString(), etBody.getText().toString(), etUrl.getText().toString());
+                    i.putExtra("movie", movie);
                     setResult(Activity.RESULT_OK, i);
                     finish();
                 }
@@ -113,9 +133,84 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new DownloadImageTask((ImageView) findViewById(R.id.imageView))
-                        .execute("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
+                        .execute(etUrl.getText().toString());
             }
         });
+
+        etTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (etTitle.getText().length() == 0)
+                    btnOk.setEnabled(false);
+                else btnOk.setEnabled(true);
+            }
+        });
+
+    }
+
+    public void orderViewsByScreenTest(int screenX, int screenY) {
+
+        //  Array to hold all views except layouts
+        ArrayList<View> viewArrayList = putAllChildInArray(mainLayout);
+
+        //  Set padding right and left of main layout (screen)
+        int p = (int)(screenX * 0.025);
+        mainLayout.setPadding(p, 0, p, 0);
+
+        int viewsLevelCountInLayout = 6; // how many views levels in the layout
+        int[] defaultScreenSize = {1080, 1920}; //  default screen size (pixel 2)
+        int differenceOfScreens = screenY - defaultScreenSize[1];
+        int heightBonusPerView = (int)((Math.abs(differenceOfScreens) / viewsLevelCountInLayout)); //  pixels amount to add to each view's height
+        if(heightBonusPerView < 10) return; //   No need to perform action - screen is similar to default
+
+        boolean isBigger = true;
+        if(differenceOfScreens < 0)
+            isBigger = false;
+
+        for(View v : viewArrayList) {
+            int height = v.getLayoutParams().height; //current view's height
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.height = isBigger ? height + heightBonusPerView : height - heightBonusPerView;
+            //params.height = height + heightBonusPerView;
+
+            if(v instanceof EditText) {
+                params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+                //  Align body text with all other edit texts
+                if(v.getId() == R.id.etBody)
+                    params.rightMargin = p;
+                else if(v.getId() == R.id.etURL)
+                    params.weight = 1;
+            }
+            else if(v instanceof TextView && !(v instanceof Button)) {
+                params.rightMargin = p;
+            }
+            else if(v instanceof Button){
+                params.weight = 1;
+                if(v.getId() == R.id.btnShowUrl) {
+                    params.weight = 0;
+                    //params.weight = 1;
+                }
+                //params.topMargin = 200;
+            }
+            else if(v instanceof ImageView) {
+                params.gravity = Gravity.CENTER;
+            }
+            v.setLayoutParams(params);
+        }
+
+
     }
 
     public void orderViewsByScreen(int screenX, int screenY, int density) {
@@ -154,6 +249,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     //params.weight = 1;
                 }
                 //params.topMargin = 200;
+            }
+            else if(v instanceof ImageView) {
+                params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT, height + heightBonusPerView);
+                params.gravity = Gravity.CENTER;
             }
             v.setLayoutParams(params);
         }

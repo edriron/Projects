@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
 
     <item
         android:id="@+id/menuItemFavorites"
-        android:icon="@drawable/favorites_white"
+        android:icon="@android:drawable/btn_star"
         android:title="Favorites"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/menuItemAdd"
-        android:icon="@drawable/add_white"
-        android:title="Search"
-        app:showAsAction="always" />
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="Add"
+        app:showAsAction="always" >
+
+        <menu>
+            <item
+                android:id="@+id/menuItemAdd"
+                android:title="Add" />
+
+            <item
+                android:id="@+id/menuItemAddApi"
+                android:title="Add from online" />
+        </menu>
+
+    </item>
 
     <group
         android:id="@+id/groupOptions">
 
         <item
-            android:id="@+id/menuItem1"
-            android:title="Option A" />
+            android:id="@+id/menuItemExit"
+            android:title="Exit" />
 
         <item
-            android:id="@+id/menuItem2"
-            android:title="Option B" />
+            android:id="@+id/menuItemDeleteAll"
+            android:title="Delete all" />
 
     </group>
+
+
 
 </menu>

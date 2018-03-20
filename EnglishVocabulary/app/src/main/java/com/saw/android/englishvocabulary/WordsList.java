@@ -1,5 +1,6 @@
 package com.saw.android.englishvocabulary;
 
+import android.graphics.Point;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -11,17 +12,52 @@ import java.util.ArrayList;
 public class WordsList {
 
     private ArrayList<Word> list;
+    private Database db;
+    private boolean needUpdate;
 
     public WordsList() {
-        list = new ArrayList<Word>();
+        list = new ArrayList<>();
+        db = new Database();
+        list = db.getAllProducts();
+        needUpdate = false;
+    }
+
+    public void reloadFromDB() {
+        if(needUpdate) {
+            list = db.getAllProducts();
+            needUpdate = false;
+        }
     }
 
     public void addWord(Word word) {
-        list.add(word);
+        db.addProduct(word);
+        needUpdate = true;
     }
 
-    public ArrayList<Word> getArray() {
-        return list;
+    //return true if deleted successfully, false if failed
+    public boolean deleteWord(Word word) {
+        for(int i = 0; i < list.size(); i++) {
+            Word currentWord = list.get(i);
+            if(currentWord.getName().equals(word.getName())) {
+                db.deleteProduct(word);
+                list.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //return true if updated successfully, false if failed
+    public boolean updateWord(Word oldWord, Word newWord) {
+        for(int i = 0; i < list.size(); i++) {
+            Word currentWord = list.get(i);
+            if(currentWord.getName().equals(oldWord.getName())) {
+                db.updateProduct(newWord);
+                currentWord.replace(newWord);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isEmpty() {
@@ -55,6 +91,11 @@ public class WordsList {
         return l;
     }
 
+    //return word by position
+    public Word get(int pos) {
+        return list.get(pos);
+    }
+
     //public String[] getGroup
 
     public String getTransByName(String name) {
@@ -67,7 +108,7 @@ public class WordsList {
         return "";
     }
 
-    public void test() {
+    public void test2() {
         list.add(new Word("Dismay", "הבהיל", GroupType.Verb));
         list.add(new Word("Absently", "בהיסח דעת", GroupType.Adjective));
         list.add(new Word("Jabbing", "לנעוץ", GroupType.Verb));
@@ -78,5 +119,10 @@ public class WordsList {
         list.add(new Word("Preposterous", "אבסורדי", GroupType.Adjective));
         list.add(new Word("Indulged", "התענג", GroupType.Verb));
         list.add(new Word("Strewn", "מכוסה במשהו, זרוע", GroupType.Adjective));
+    }
+
+    public void testDB() {
+        Database db = new Database();
+        list = db.getAllProducts();
     }
 }

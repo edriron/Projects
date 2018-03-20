@@ -1,10 +1,15 @@
 package com.saw.android.lmdb;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,34 +17,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class LibraryActivity extends AppCompatActivity {
 
-    private MenuItem optionA, optionB;
-    private GridLayout gridMovies;
-    public final int NEW_MOVIE = 1;
-    public final int EDIT_MOVIE = 2;
+    private ScrollView scrollView;
+    private LinearLayout linearLayout;
+    public static final int NEW_MOVIE = 1;
+    public static final int EDIT_MOVIE = 2;
+    public static MoviesList movies;
+    private DisplayMetrics metrics;
+    public static ArrayList<String> searches;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        gridMovies = findViewById(R.id.gridMovies);
+        scrollView = findViewById(R.id.scrollView);
+        linearLayout = findViewById(R.id.scrollLinearLayout);
+        metrics = getResources().getDisplayMetrics();
+
+        searches = new ArrayList<>();
+        movies = new MoviesList();
 
         fillMoviesByDB();
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
-
-        optionA = menu.findItem(R.id.menuItem1);
-        optionB = menu.findItem(R.id.menuItem2);
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -48,20 +60,40 @@ public class LibraryActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         switch (itemId) {
+
             case R.id.menuItemAdd:
-                Toast.makeText(this, "Add", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(this, MovieDetailsActivity.class);
                 i.putExtra("state", "add");
                 startActivityForResult(i, NEW_MOVIE);
                 return true;
+
+            case R.id.menuItemAddApi:
+                i = new Intent(this, HttpActivity.class);
+                //i.putExtra("state", "add_from_api");
+                startActivityForResult(i, NEW_MOVIE);
+                return true;
+
             case R.id.menuItemFavorites:
-                Toast.makeText(this, "Favorites", Toast.LENGTH_LONG).show();
+
                 return true;
-            case R.id.menuItem1:
-                Toast.makeText(this, "Item 1", Toast.LENGTH_LONG).show();
+
+            case R.id.menuItemExit:
+
                 return true;
-            case R.id.menuItem2:
-                Toast.makeText(this, "Item 2", Toast.LENGTH_LONG).show();
+
+            case R.id.menuItemDeleteAll:
+                AlertDialog deleteDialog = new AlertDialog.Builder(this)
+                        .setTitle("Are you sure you want to delete ALL movies?")
+                        .setNegativeButton("No", null)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                movies.deleteAllMovies();
+                                fillMoviesByDB();
+                            }
+                        })
+                        .create();
+                deleteDialog.show();
                 return true;
         }
         return false;
@@ -70,72 +102,89 @@ public class LibraryActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == NEW_MOVIE || requestCode == EDIT_MOVIE) {
-            if(resultCode == Activity.RESULT_OK){
-                String subject = data.getStringExtra("sub");
-                String body = data.getStringExtra("body");
-                String state = data.getStringExtra("state");
-                String original = data.getStringExtra("original");
-                updateMovie(subject, body, state, original);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == NEW_MOVIE) {
+                Movie movie = (Movie)data.getSerializableExtra("movie");
+                movies.addMovie(movie);
+                fillMoviesByDB();
+            }
+            else if(requestCode == EDIT_MOVIE) {
+                Movie oldMovie = (Movie)data.getSerializableExtra("oldMovie");
+                Movie newMovie = (Movie)data.getSerializableExtra("newMovie");
+                movies.updateMovie(oldMovie, newMovie);
+                fillMoviesByDB();
             }
         }
     }
 
-    private void updateMovie(String sub, String body, String state, String original) {
-        Movie b = new Movie(this, sub, body);
-
-        if(state.equals("edit")) {
-            int index = MenuActivity.movies.getMovieIndex(original);
-                Toast.makeText(this, original + "." + state, Toast.LENGTH_LONG).show();
-            MenuActivity.movies.setMovie(index, b);
-        }
-        else {
-            MenuActivity.movies.add(b);
-        }
-
-        b.setText(sub);
-
-        fillMoviesByDB();
-    }
-
     private void fillMoviesByDB() {
-        if(MenuActivity.movies.isEmpty())
-            return;
+        ArrayList<Movie> array = movies.getList();
 
-        gridMovies.removeAllViews();
-        for(Movie m : MenuActivity.movies.getList()) {
-            final Movie b = new Movie(this, m.getName(), m.getBody());
-            b.setText(m.getName());
-            //b.setTextAppearance(this, R.style.MovieButton);
-            b.setBackground(getResources().getDrawable(R.drawable.shape_menu_button));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
-            int width = getResources().getDisplayMetrics().widthPixels;
-            params.width = (int) (width * 0.2);
-            params.height = (int) (getResources().getDisplayMetrics().heightPixels * 0.15);
-            width = (int) ( (width * 0.2) / 8);
-            params.setMargins(width, width, width, width);
-            params.gravity = Gravity.CENTER;
-
-
-
-
-            b.setLayoutParams(params);
-
-            gridMovies.addView(b);
-
-            b.setOnClickListener(new View.OnClickListener() {
+        linearLayout.removeAllViews();
+        for(final Movie movie : array) {
+            MovieThumbnail thumbnail = new MovieThumbnail(this, movie, this);
+            thumbnail.addViews(metrics.heightPixels);
+            thumbnail.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    //Toast.makeText(this, "Add", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(MyApp.getContext(), MovieDetailsActivity.class);
-                    i.putExtra("state", "edit");
-                    i.putExtra("sub", b.getName());
-                    i.putExtra("body", b.getBody());
+                public boolean onLongClick(View view) {
+                    showActionDialog(movie);
+                    return true;
 
-                    startActivityForResult(i, EDIT_MOVIE);
                 }
             });
+            thumbnail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sendMovieToEditActivity(movie);
+                }
+            });
+            linearLayout.addView(thumbnail);
         }
+    }
+
+    private void sendMovieToEditActivity(Movie movie) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("state", "edit");
+        intent.putExtra("movie", movie);
+        startActivityForResult(intent, EDIT_MOVIE);
+    }
+
+    private void showActionDialog(final Movie movie) {
+        final Context c = this;
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                //.setIcon(R.drawable.delete)
+                .setTitle("Action alert")
+                .setMessage("Choose an option for:\n" + movie.getTitle())
+                .setCancelable(false)
+                .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sendMovieToEditActivity(movie);
+                    }
+                })
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        showDeleteDialog(movie);
+                    }
+                })
+                .setNeutralButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
+
+    private void showDeleteDialog(final Movie movie) {
+        AlertDialog deleteDialog = new AlertDialog.Builder(this)
+                .setTitle("Are you sure you want to delete?")
+                .setNegativeButton("No", null)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        movies.deleteWord(movie);
+                        fillMoviesByDB();
+                    }
+                })
+                .create();
+        deleteDialog.show();
     }
 }

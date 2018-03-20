@@ -17,13 +17,21 @@
         android:textSize="@dimen/mainTitleSize"
         android:textStyle="bold" />
 
-    <GridLayout
-        android:id="@+id/gridMovies"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:columnCount="4">
+        android:layout_height="match_parent">
 
-    </GridLayout>
+        <LinearLayout
+            android:id="@+id/scrollLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

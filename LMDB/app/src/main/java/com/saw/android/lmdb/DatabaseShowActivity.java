@@ -13,8 +13,9 @@ public class DatabaseShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_show);
+
         Database db = new Database();
-        ArrayList<Movie> movies = db.getAllProducts(this);
+        ArrayList<Movie> movies = db.getAllMovies();
         ListView listView = findViewById(R.id.testListView);
         ArrayAdapter<Movie> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, movies);
         listView.setAdapter(adapter);

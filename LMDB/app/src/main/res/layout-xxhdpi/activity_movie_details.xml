@@ -23,7 +23,7 @@
             android:layout_height="35dp"
             android:layout_weight="0.1"
             android:fontFamily="casual"
-            android:text="@string/title"
+            android:text="Title"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
