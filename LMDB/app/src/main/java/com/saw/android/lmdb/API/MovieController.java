@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public abstract class MovieController  implements HttpRequest.Callbacks {
 
-    protected static ArrayList<SearchResult> countries; // All countries.
+    protected static ArrayList<SearchResult> searchResults; // All search results.
     protected Activity activity; // The main activity.
     protected ProgressDialog progressDialog; // Progress dialog.
     protected ListView listViewCountries; // The main ListView for updating the countries list.

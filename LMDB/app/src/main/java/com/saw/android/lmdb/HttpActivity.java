@@ -14,13 +14,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.saw.android.lmdb.API.MoviesReaderController;
+import com.saw.android.lmdb.API.ReaderController;
 
 public class HttpActivity extends AppCompatActivity {
 
     private ListView listViewCandies;
     private Dialog insertOrUpdateDialog;
     private AlertDialog deleteDialog;
-    private MoviesReaderController candiesReaderController;
+    //private MoviesReaderController candiesReaderController;
+    private ReaderController controller;
     private Button btnSearch;
     private EditText etTitle;
 
@@ -72,9 +74,19 @@ public class HttpActivity extends AppCompatActivity {
 
         // Create controllers:
         String searchString = str.replaceAll(" ", "%20"); //Replace all " " with "%20" to prevent error:400 bad-request
+        controller = new ReaderController(this, 0);
+
+        // Show all countries from server:
+        controller.readByName(searchString);
+    }
+
+    /*public void sendSearchToServer(String str) {
+
+        // Create controllers:
+        String searchString = str.replaceAll(" ", "%20"); //Replace all " " with "%20" to prevent error:400 bad-request
         candiesReaderController = new MoviesReaderController(this, searchString);
 
         // Show all countries from server:
         candiesReaderController.readAllCountries();
-    }
+    }*/
 }
