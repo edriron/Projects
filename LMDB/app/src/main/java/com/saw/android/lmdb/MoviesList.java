@@ -16,26 +16,14 @@ public class MoviesList {
         list = db.getAllMovies();
     }
 
-    public boolean isEmpty() {
-        return (list.size() == 0);
-    }
-
     public ArrayList<Movie> getList() {
         return list;
     }
 
-    public int getMovieIndex(String name) {
-        for (int i = 0; i < list.size(); i++)
-            if (list.get(i).getTitle().equals(name))
-                return i;
-        return -1;
-    }
-
-    public void setMovie(int i, Movie m) {
-        list.get(i).set(m);
-    }
-
     public void addMovie(Movie movie) {
+        if(contains(movie))
+            return;
+
         list.add(movie);
         movie.normalizeToSave();
         db.addMovie(movie);
@@ -53,6 +41,13 @@ public class MoviesList {
                 return;
             }
         }
+    }
+
+    public boolean contains(Movie movie) {
+        for(Movie m : list)
+            if(m.getTitle().equals(movie.getTitle()))
+                return true;
+        return false;
     }
 
     public void deleteWord(Movie movie) {

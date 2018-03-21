@@ -1,7 +1,10 @@
 package com.saw.android.lmdb;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,9 +19,18 @@ import java.net.MalformedURLException;
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     ImageView bmImage;
+    //protected Activity activity;
+    protected ProgressDialog progressDialog; // Progress dialog.
 
     public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
+        //this.activity = activity;
+        //progressDialog = new ProgressDialog(activity);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        //progressDialog.show();
     }
 
     protected Bitmap doInBackground(String... urls) {
@@ -28,14 +40,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
         } catch (MalformedURLException me) {
-            //http://files.softicons.com/download/tv-movie-icons/movie-icons-by-tobias-vogel/png/512x512/movie-noPlay-blank.png
-            try {
-                InputStream in = new java.net.URL("http://files.softicons.com/download/tv-movie-icons/movie-icons-by-tobias-vogel/png/512x512/movie-noPlay-blank.png").openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
+            //mIcon11.setImageResource(R.drawable.movie_blank_thumbnail);
+            mIcon11 = BitmapFactory.decodeResource(MyApp.getContext().getResources(), R.raw.movie_blank_thumbnail);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
@@ -45,5 +51,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
+        //progressDialog.dismiss();
     }
 }

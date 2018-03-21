@@ -45,13 +45,6 @@ public class HttpActivity extends AppCompatActivity {
         });
     }
 
-    public static void setMovieToEditActivity(Movie movie) {
-        //Intent i = new Intent(this, MovieDetailsActivity.class);
-        //i.putExtra("state", "edit_from_api");
-        //i.putExtra("movie", movie);
-        //startActivityForResult(1, i);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_OK) {
@@ -71,7 +64,8 @@ public class HttpActivity extends AppCompatActivity {
 
         sendSearchToServer(etTitle.getText().toString());
 
-        LibraryActivity.searches.add(etTitle.getText().toString());
+        if(!LibraryActivity.searches.contains(etTitle.getText().toString()))
+            LibraryActivity.searches.add(etTitle.getText().toString());
     }
 
     public void sendSearchToServer(String str) {

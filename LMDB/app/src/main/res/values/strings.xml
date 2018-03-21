@@ -12,4 +12,20 @@
     <string name="show">Show</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="add_online">Add from online</string>
+    <string name="exit">Exit</string>
+    <string name="delete_all">Delete all</string>
+    <string name="favorites">Favorites</string>
+
+    <string name="delete_all_warning">Are you sure you want to delete ALL movies?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="action_alert_title">Action alert</string>
+    <string name="action_alert">Choose an option for:\n</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="delete_warning">Are you sure you want to delete?</string>
+
 </resources>

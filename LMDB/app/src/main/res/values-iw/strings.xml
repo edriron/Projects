@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">LMDB</string>
+    <string name="mainTitle">Local Movie Database</string>
+    <string name="library">ספרייה</string>
+    <string name="myLibrary">הספרייה שלי</string>
+    <string name="movie_title_search_hint">הקלד כותרת</string>
+    <string name="search_movies_online">חיפוש סרט באינטרנט</string>
+    <string name="title">כותרת:</string>
+    <string name="description">תיאור:</string>
+    <string name="url">כתובת:</string>
+    <string name="show">הצג</string>
+    <string name="ok">אישור</string>
+    <string name="cancel">ביטול</string>
+    <string name="add">הוספה</string>
+    <string name="save">שמור</string>
+    <string name="add_online">הוספה מהאינטרנט</string>
+    <string name="exit">יציאה</string>
+    <string name="delete_all">מחק הכל</string>
+    <string name="favorites">מועדפים</string>
+
+    <string name="delete_all_warning">האם אתה בטוח שברצונך למחוק את כל הסרטים?</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="action_alert_title">התראת פעולה</string>
+    <string name="action_alert">בחר אפשרות בשביל:\n</string>
+    <string name="edit">עריכה</string>
+    <string name="delete">מחיקה</string>
+    <string name="delete_warning">האם אתה בטוח שברצונך למחוק?</string>
+</resources>

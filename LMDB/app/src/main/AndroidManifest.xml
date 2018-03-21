@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MenuActivity" />
         <activity android:name=".LibraryActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +20,6 @@
         </activity>
         <activity android:name=".MovieDetailsActivity" />
         <activity android:name=".HttpActivity" />
-        <activity android:name=".DatabaseShowActivity"></activity>
     </application>
 
 </manifest>

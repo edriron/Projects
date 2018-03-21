@@ -3,6 +3,8 @@ package com.saw.android.lmdb;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +29,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private EditText etTitle, etBody, etUrl;
     private TextView tvTitle, tvDesc, tvUrl;
     private ImageView imageView;
+    private static Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         btnShow = findViewById(R.id.btnShowUrl);
 
         imageView = findViewById(R.id.imageView);
+        activity = this;
 
         DisplayMetrics met = getResources().getDisplayMetrics();
         //orderViewsByScreenTest(met.widthPixels, met.heightPixels);
@@ -64,7 +68,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             etBody.setText(movie.getBody());
             etUrl.setText(movie.getUrl());
 
-            btnOk.setText("Save");
+            btnOk.setText(getString(R.string.save));
 
             new DownloadImageTask((ImageView) findViewById(R.id.imageView))
                     .execute(movie.getUrl());
@@ -87,7 +91,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             etBody.setText(movie.getBody());
             etUrl.setText(movie.getUrl());
 
-            btnOk.setText("Add");
+            btnOk.setText(getString(R.string.add));
 
             new DownloadImageTask((ImageView) findViewById(R.id.imageView))
                     .execute(movie.getUrl());
@@ -104,10 +108,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
             });
         }
         else { //add
-            btnOk.setText("Add");
+            btnOk.setText(getString(R.string.add));
             btnOk.setEnabled(false);
-            new DownloadImageTask((ImageView) findViewById(R.id.imageView))
-                    .execute("http://files.softicons.com/download/tv-movie-icons/movie-icons-by-tobias-vogel/png/512x512/movie-noPlay-blank.png");
+
+            Bitmap bm = BitmapFactory.decodeResource(MyApp.getContext().getResources(), R.raw.movie_blank_thumbnail);
+            imageView.setImageBitmap(bm);
+
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

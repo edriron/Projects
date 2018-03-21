@@ -5,8 +5,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -21,6 +24,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 public class LibraryActivity extends AppCompatActivity {
@@ -32,6 +36,7 @@ public class LibraryActivity extends AppCompatActivity {
     public static MoviesList movies;
     private DisplayMetrics metrics;
     public static ArrayList<String> searches;
+    public static Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class LibraryActivity extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollView);
         linearLayout = findViewById(R.id.scrollLinearLayout);
         metrics = getResources().getDisplayMetrics();
+        resources = getResources();
 
         searches = new ArrayList<>();
         movies = new MoviesList();
@@ -69,23 +75,23 @@ public class LibraryActivity extends AppCompatActivity {
 
             case R.id.menuItemAddApi:
                 i = new Intent(this, HttpActivity.class);
-                //i.putExtra("state", "add_from_api");
                 startActivityForResult(i, NEW_MOVIE);
                 return true;
 
             case R.id.menuItemFavorites:
-
+                i = new Intent(Settings.ACTION_SETTINGS);
+                startActivity(i);
                 return true;
 
             case R.id.menuItemExit:
-
+                finish();
                 return true;
 
             case R.id.menuItemDeleteAll:
                 AlertDialog deleteDialog = new AlertDialog.Builder(this)
-                        .setTitle("Are you sure you want to delete ALL movies?")
-                        .setNegativeButton("No", null)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle(getString(R.string.delete_all_warning))
+                        .setNegativeButton(getString(R.string.no), null)
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 movies.deleteAllMovies();
@@ -153,31 +159,31 @@ public class LibraryActivity extends AppCompatActivity {
         final Context c = this;
         AlertDialog dialog = new AlertDialog.Builder(this)
                 //.setIcon(R.drawable.delete)
-                .setTitle("Action alert")
-                .setMessage("Choose an option for:\n" + movie.getTitle())
+                .setTitle(getString(R.string.action_alert_title))
+                .setMessage(getString(R.string.action_alert) + movie.getTitle())
                 .setCancelable(false)
-                .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.edit), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sendMovieToEditActivity(movie);
                     }
                 })
-                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showDeleteDialog(movie);
                     }
                 })
-                .setNeutralButton("Cancel", null)
+                .setNeutralButton(getString(R.string.cancel), null)
                 .create();
         dialog.show();
     }
 
     private void showDeleteDialog(final Movie movie) {
         AlertDialog deleteDialog = new AlertDialog.Builder(this)
-                .setTitle("Are you sure you want to delete?")
-                .setNegativeButton("No", null)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.delete_warning))
+                .setNegativeButton(getString(R.string.no), null)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         movies.deleteWord(movie);
