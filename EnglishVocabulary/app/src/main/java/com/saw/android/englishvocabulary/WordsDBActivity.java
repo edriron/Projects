@@ -22,11 +22,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class WordsDBActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+public class WordsDBActivity extends AppCompatActivity {
 
     private LinearLayout layoutDB;
     public final int sort_None = 0, sort_verbs = 1, sortNouns = 2, sort_Adjective = 3;
-    private GestureDetectorCompat gestureDetector;
     private int REQUEST_EDIT = 1;
 
     @Override
@@ -36,7 +35,6 @@ public class WordsDBActivity extends AppCompatActivity implements GestureDetecto
 
         layoutDB = findViewById(R.id.layoutDB);
         MenuActivity.wordsList.reloadFromDB(); //Reloads from db only in case update is needed
-        gestureDetector = new GestureDetectorCompat(this, this);
 
         loadListView(sort_None);
     }
@@ -57,21 +55,21 @@ public class WordsDBActivity extends AppCompatActivity implements GestureDetecto
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 showActionsDialog(i);
-                return false;
+                return true;
             }
         });
 
-        /*MyListView.setOnItemClickListener(
+        MyListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        String trans = MenuActivity.wordsList.getTransByName(String.valueOf(adapterView.getItemAtPosition(i)));
-                        //String trans = MenuActivity.wordsList.getTransByName(String.valueOf(adapterView.getItemAtPosition(0)));
-                        Toast.makeText(MyApp.getContext(), trans, Toast.LENGTH_LONG).show();
+                        Word word = MenuActivity.wordsList.get(i);
+                        Intent intent = new Intent(MyApp.getContext(), AddWordActivity.class);
+                        intent.putExtra("word", word);
+                        startActivityForResult(intent, REQUEST_EDIT);
                     }
 
-                });*/
+                });
     }
 
     //  Shows actions dialog
@@ -182,51 +180,5 @@ public class WordsDBActivity extends AppCompatActivity implements GestureDetecto
         }
 
         return false;
-    }
-
-    ///////// OnGestureListener METHODS //////////
-    public boolean onSingleTapConfirmed(MotionEvent e) {
-
-        return true;
-    }
-
-    public boolean onDoubleTap(MotionEvent e) {
-
-        return true;
-    }
-
-    public boolean onDoubleTapEvent(MotionEvent e) {
-
-        return true;
-    }
-
-    public boolean onDown(MotionEvent e) {
-
-        return true;
-    }
-
-    public void onShowPress(MotionEvent e) {
-
-
-    }
-
-    public boolean onSingleTapUp(MotionEvent e) {
-
-        return true;
-    }
-
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-
-        return true;
-    }
-
-    public void onLongPress(MotionEvent e) {
-
-
-    }
-
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-        return true;
     }
 }

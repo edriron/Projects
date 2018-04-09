@@ -34,7 +34,7 @@ public class ReaderController extends MovieController implements AdapterView.OnI
     // Read all movies with a name from the server:
     public void readByName(String searchName) {
         HttpRequest httpRequest = new HttpRequest(this);
-        String exe = "http://api.themoviedb.org/3/search/movie?%20&query= " + searchName + "&api_key=848880a3db2a7e880e5c31cfeb9464cd";
+        String exe = "http://api.themoviedb.org/3/search/movie?%20&query=" + searchName + "&api_key=848880a3db2a7e880e5c31cfeb9464cd";
         httpRequest.execute(exe);
     }
 

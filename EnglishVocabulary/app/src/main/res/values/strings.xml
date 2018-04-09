@@ -11,4 +11,17 @@
         <item>Noun</item>
         <item>Adjective</item>
     </string-array>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tab_text_1">New Word</string>
+    <string name="tab_text_2">My Words</string>
+    <string name="tab_text_3">Test Yourself</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Add Word</string>
+    <string name="title_dashboard">All Words</string>
+    <string name="title_notifications">Test Yourself</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

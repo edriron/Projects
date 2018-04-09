@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 public class MenuActivity extends AppCompatActivity {
 
     private LinearLayout mainLayout;
-    private Button btnAdd, btnDB, btnPractice;
+    private Button btnAdd, btnDB, btnPractice, btnTemp;
     public static WordsList wordsList;
 
     @Override
@@ -22,6 +22,7 @@ public class MenuActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
         btnDB = findViewById(R.id.btnDB);
         btnPractice = findViewById(R.id.btnPractice);
+        btnTemp = findViewById(R.id.btnTemp);
         wordsList = new WordsList();
 
         //wordsList.testDB();
@@ -46,6 +47,14 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MyApp.getContext(), PracticeActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MyApp.getContext(), MainActivity.class);
                 startActivity(i);
             }
         });

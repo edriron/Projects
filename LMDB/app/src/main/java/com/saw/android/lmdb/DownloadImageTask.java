@@ -19,13 +19,11 @@ import java.net.MalformedURLException;
 public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     ImageView bmImage;
-    //protected Activity activity;
+
     protected ProgressDialog progressDialog; // Progress dialog.
 
     public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
-        //this.activity = activity;
-        //progressDialog = new ProgressDialog(activity);
     }
 
     @Override
@@ -40,7 +38,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
         } catch (MalformedURLException me) {
-            //mIcon11.setImageResource(R.drawable.movie_blank_thumbnail);
+
             mIcon11 = BitmapFactory.decodeResource(MyApp.getContext().getResources(), R.raw.movie_blank_thumbnail);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -51,6 +49,6 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
-        //progressDialog.dismiss();
+
     }
 }

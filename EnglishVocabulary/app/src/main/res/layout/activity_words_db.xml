@@ -3,6 +3,7 @@
     android:id="@+id/layoutDB"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     android:orientation="vertical">
 
 

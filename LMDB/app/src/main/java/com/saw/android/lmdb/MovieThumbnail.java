@@ -67,7 +67,6 @@ public class MovieThumbnail extends LinearLayout {
         ImageView image = new ImageView(context);
         params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         params.width = (int) (screenRelativeHeight / 1.5);
-        //params.height = screenRelativeHeight;
         params.gravity = Gravity.END;
         params.leftMargin = 10;
         image.setLayoutParams(params);

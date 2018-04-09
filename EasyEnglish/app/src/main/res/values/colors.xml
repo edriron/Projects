@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#50a3ac</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#999999</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="fragments_background">#bcbab8</color>
+    <color name="fragments_background_orange">#ff8d23</color>
+    <color name="bar_background">#000000</color>
+    <color name="bar_background_blue">#55ccd9</color>
+    <color name="switch_on">#C5D9F4</color>
+    <color name="switch_off">#DCE5FD</color>
+    <color name="spinner_background">#c2c0bd</color>
+</resources>

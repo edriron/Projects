@@ -27,5 +27,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="delete_warning">Are you sure you want to delete?</string>
+    <string name="clean_searches">Clean searches</string>
+    <string name="delete_all_searches_warning">Are you sure you want to delete ALL searches?</string>
 
 </resources>

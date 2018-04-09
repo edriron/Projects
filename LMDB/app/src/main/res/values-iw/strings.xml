@@ -26,4 +26,6 @@
     <string name="edit">עריכה</string>
     <string name="delete">מחיקה</string>
     <string name="delete_warning">האם אתה בטוח שברצונך למחוק?</string>
+    <string name="clean_searches">נקה חיפושים אחרונים</string>
+    <string name="delete_all_searches_warning">האם אתה בטוח שברצונך למחוק את כל החיפושים?</string>
 </resources>

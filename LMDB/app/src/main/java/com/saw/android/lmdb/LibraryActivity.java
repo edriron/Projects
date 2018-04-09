@@ -35,7 +35,6 @@ public class LibraryActivity extends AppCompatActivity {
     public static final int EDIT_MOVIE = 2;
     public static MoviesList movies;
     private DisplayMetrics metrics;
-    public static ArrayList<String> searches;
     public static Resources resources;
 
     @Override
@@ -48,7 +47,6 @@ public class LibraryActivity extends AppCompatActivity {
         metrics = getResources().getDisplayMetrics();
         resources = getResources();
 
-        searches = new ArrayList<>();
         movies = new MoviesList();
 
         fillMoviesByDB();
@@ -124,7 +122,7 @@ public class LibraryActivity extends AppCompatActivity {
     }
 
     private void fillMoviesByDB() {
-        ArrayList<Movie> array = movies.getList();
+        ArrayList<Movie> array = movies.getMoviesList();
 
         linearLayout.removeAllViews();
         for(final Movie movie : array) {
@@ -158,7 +156,6 @@ public class LibraryActivity extends AppCompatActivity {
     private void showActionDialog(final Movie movie) {
         final Context c = this;
         AlertDialog dialog = new AlertDialog.Builder(this)
-                //.setIcon(R.drawable.delete)
                 .setTitle(getString(R.string.action_alert_title))
                 .setMessage(getString(R.string.action_alert) + movie.getTitle())
                 .setCancelable(false)

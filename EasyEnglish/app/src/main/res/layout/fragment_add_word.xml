@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragments_background"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:screenOrientation="portrait">
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/add_word"
+        android:visibility="visible"/>
+
+    <EditText
+        android:id="@+id/editTextWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Word"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextTrans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="תרגום"
+        android:inputType="text|textPersonName"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:maxLines="0" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Description"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/editTextExample"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Example"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:inputType="textMultiLine" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioVerb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Verb" />
+
+        <RadioButton
+            android:id="@+id/radioNoun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Noun" />
+
+        <RadioButton
+            android:id="@+id/radioAdjective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Adjective" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_button_primary"
+            android:text="Add"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_button_primary"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</LinearLayout>

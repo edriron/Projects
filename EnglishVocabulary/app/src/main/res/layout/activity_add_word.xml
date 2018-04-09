@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:screenOrientation="portrait"
     android:layout_margin="10dp">
 
 
@@ -21,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:layout_marginTop="20dp"
         android:hint="Word" />
 
@@ -30,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:maxLines="0"
         android:layout_marginTop="20dp"
         android:hint="תרגום" />

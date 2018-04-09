@@ -3,6 +3,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:screenOrientation="portrait"
     android:orientation="vertical">
 
 
@@ -81,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:onClick="onClick_Next"
         android:text="Next" />
 
     <TextView
@@ -90,6 +92,13 @@
         android:gravity="center_horizontal"
         android:textSize="25dp"
         android:text="Score: 0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
 
 
 </LinearLayout>

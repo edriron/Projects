@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/fragments_background">
+
+    <LinearLayout
+        android:id="@+id/testLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/marginTopTitle"
+            style="@style/TextTitle"
+            android:text="ABC" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp" >
+
+            <TextView
+                android:id="@+id/tvOption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:text="Option 1" />
+
+            <TextView
+                android:id="@+id/tvOption2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:text="Option 2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/marginTopTitle">
+
+            <TextView
+                android:id="@+id/tvOption3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:text="Option 3" />
+
+            <TextView
+                android:id="@+id/tvOption4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:textSize="25dp"
+                android:text="Option 4" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_button_primary"
+            android:textAllCaps="false"
+            android:text="Next" />
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="25dp"
+            android:layout_marginTop="30dp"
+            android:text="Score: 0" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_button_primary"
+        android:text="Start"
+        android:textAllCaps="false"
+        android:visibility="visible" />
+
+
+
+
+</LinearLayout>

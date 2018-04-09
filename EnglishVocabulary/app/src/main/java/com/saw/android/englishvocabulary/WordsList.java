@@ -60,6 +60,10 @@ public class WordsList {
         return false;
     }
 
+    public int size() {
+        return list.size();
+    }
+
     public boolean isEmpty() {
         return list.size() == 0;
     }
@@ -124,5 +128,12 @@ public class WordsList {
     public void testDB() {
         Database db = new Database();
         list = db.getAllProducts();
+    }
+
+    public ArrayList<Word> duplicate() {
+        ArrayList<Word> duplicated = new ArrayList<>();
+        for(Word w : list)
+            duplicated.add(w);
+        return duplicated;
     }
 }

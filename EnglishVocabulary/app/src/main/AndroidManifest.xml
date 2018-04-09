@@ -19,7 +19,10 @@
         </activity>
         <activity android:name=".AddWordActivity" />
         <activity android:name=".WordsDBActivity" />
-        <activity android:name=".PracticeActivity"></activity>
+        <activity android:name=".PracticeActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"></activity>
     </application>
 
 </manifest>

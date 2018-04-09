@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fragments_background"
+    tools:context="com.edri.ron.easyenglish.DictionaryActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/marginTopTitle"
+        style="@style/TextTitle"
+        android:text="Dictionary" />
+
+    <EditText
+        android:id="@+id/searchTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:inputType="text"
+        android:background="@drawable/shape_edit_text"
+        android:padding="5dp"
+        android:hint="Word to search" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:text="Search"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_button_primary"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/result_trans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Translation: "/>
+
+        <EditText
+            android:id="@+id/etTrans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_edit_text"
+            android:padding="5dp"
+            android:inputType="textMultiLine" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btnQuickAdd"
+                android:text="Quick Add"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:enabled="false"
+                android:background="@drawable/shape_button_primary"/>
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="8dp"
+                android:enabled="false"
+                android:background="@drawable/shape_button_primary"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
